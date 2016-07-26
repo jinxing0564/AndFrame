@@ -14,8 +14,7 @@ import java.util.Map;
 public abstract class BaseProto implements IProtocol {
 
     /**
-     * 用于设定http协议方式
-     * @return http 协议，POST GET PUT
+     * 用于设定http协议方式 POST GET PUT
      */
     @Override
     public int getMethod() {
