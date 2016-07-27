@@ -2,6 +2,7 @@ package com.vince.aframe.base.net.protocol;
 
 import com.android.volley.Request;
 import com.vince.aframe.base.net.HTTPClient;
+import com.vince.aframe.base.net.env.Environment;
 import com.vince.aframe.base.net.protocol.listener.IRequestListener;
 import com.vince.aframe.base.net.response.listener.ResponseFailureListener;
 import com.vince.aframe.base.net.response.listener.ResponseSuccessListener;
@@ -74,9 +75,8 @@ public abstract class BaseProto implements IProtocol {
     public abstract Type getResponseClass();
 
     public String getUrl() {
-        //TODO：env为环境，DEV，TEST，PROD等
-        String env = "";
-        return "" + getOperation(); // 获取ENV参数添加上来
+        String envURL = Environment.getInstance().getBaseURL();
+        return envURL + getOperation();
     }
 
     public String getRequestBody() {

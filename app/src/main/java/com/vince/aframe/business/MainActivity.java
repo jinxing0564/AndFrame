@@ -11,5 +11,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        Toast.makeText(this, Environment.getInstance().getBaseURL(),Toast.LENGTH_LONG).show();
     }
 }
