@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 /**
+ * Appliciton
+ * 
  * Created by tianweixin on 2016-7-26.
  */
 public class AFApp extends Application {
