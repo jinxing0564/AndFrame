@@ -21,11 +21,11 @@ public class AFJsonRequest extends JsonObjectRequest {
     }
 
     public AFJsonRequest(BaseProto proto) {
-        super(proto.getMethod()
-                , proto.getUrl()
-                , proto.getRequestBody()
-                , proto.getSuccessListener()
-                , proto.getFailureListener());
+        super(proto.getMethod(),
+                proto.getUrl(),
+                proto.getRequestBody(),
+                proto.getSuccessListener(),
+                proto.getFailureListener());
         successListener = proto.getSuccessListener();
         failureListener = proto.getFailureListener();
     }
