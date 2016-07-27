@@ -1,6 +1,7 @@
-package com.vince.aframe.base.net;
+package com.vince.aframe.base.net.protocol;
 
 import com.android.volley.Request;
+import com.vince.aframe.base.net.protocol.listener.IRequestListener;
 
 import java.lang.reflect.Type;
 import java.util.Map;

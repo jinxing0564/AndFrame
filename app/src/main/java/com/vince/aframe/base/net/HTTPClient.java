@@ -1,6 +1,7 @@
 package com.vince.aframe.base.net;
 
 import com.android.volley.Request;
+import com.vince.aframe.base.net.protocol.BaseProto;
 
 /**
  * Created by tianweixin on 2016-7-26.

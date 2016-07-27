@@ -1,6 +1,10 @@
-package com.vince.aframe.base.net;
+package com.vince.aframe.base.net.protocol;
 
 import com.android.volley.Request;
+import com.vince.aframe.base.net.HTTPClient;
+import com.vince.aframe.base.net.protocol.listener.IRequestListener;
+import com.vince.aframe.base.net.response.listener.ResponseFailureListener;
+import com.vince.aframe.base.net.response.listener.ResponseSuccessListener;
 
 import org.json.JSONObject;
 
@@ -13,6 +17,14 @@ import java.util.Map;
  */
 public abstract class BaseProto implements IProtocol {
 
+    private IRequestListener listener;
+    private AFJsonRequest request;
+
+
+    public BaseProto(IRequestListener listener) {
+        this.listener = listener;
+    }
+
     /**
      * 用于设定http协议方式：POST GET PUT
      */
@@ -23,8 +35,10 @@ public abstract class BaseProto implements IProtocol {
 
     @Override
     public Request getRequest() {
-        AFJsonRequest request = new AFJsonRequest(getMethod(), getUrl(),
-                getRequestBody(), getSuccessListener(), getFailureListener());
+        if (request == null) {
+            request = new AFJsonRequest(getMethod(), getUrl(),
+                    getRequestBody(), getSuccessListener(), getFailureListener());
+        }
         return request;
     }
 
@@ -43,12 +57,15 @@ public abstract class BaseProto implements IProtocol {
 
     @Override
     public void cancel() {
-        //TODO: 取消协议，不要回调listener
-
+        if (request != null) {
+            request.cancel();
+        }
     }
 
     @Override
-    public abstract IRequestListener getListener();
+    public IRequestListener getListener() {
+        return listener;
+    }
 
     /**
      * 返回Response的class，用于gson获取Response对象
@@ -77,7 +94,8 @@ public abstract class BaseProto implements IProtocol {
     }
 
     public ResponseSuccessListener getSuccessListener() {
-        return new ResponseSuccessListener(getListener());
+        return new ResponseSuccessListener(getListener(), getResponseClass());
+
     }
 
     public ResponseFailureListener getFailureListener() {
