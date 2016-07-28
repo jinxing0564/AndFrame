@@ -20,16 +20,6 @@ public class AFJsonRequest extends JsonObjectRequest {
         failureListener = (ResponseFailureListener) errorListener;
     }
 
-    public AFJsonRequest(BaseProto proto) {
-        super(proto.getMethod(),
-                proto.getUrl(),
-                proto.getRequestBody(),
-                proto.getSuccessListener(),
-                proto.getFailureListener());
-        successListener = proto.getSuccessListener();
-        failureListener = proto.getFailureListener();
-    }
-
     @Override
     public void cancel(){
         if (successListener != null) {

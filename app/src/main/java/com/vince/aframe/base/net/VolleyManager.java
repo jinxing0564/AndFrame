@@ -12,18 +12,18 @@ public class VolleyManager {
     private static VolleyManager volleyManager;
     private RequestQueue mRequestQueue;
 
-    private VolleyManager(){
+    private VolleyManager() {
         mRequestQueue = Volley.newRequestQueue(AFApp.getAppContext());
     }
 
-    public static VolleyManager getInstance(){
-        if(volleyManager == null){
+    public static VolleyManager getInstance() {
+        if (volleyManager == null) {
             volleyManager = new VolleyManager();
         }
         return volleyManager;
     }
 
-    public void addRequest(Request request){
+    public void addRequest(Request request) {
         mRequestQueue.add(request);
     }
 }

@@ -35,7 +35,7 @@ public class ResponseSuccessListener extends ResponseCancelable implements Respo
         }
         //这里处理resultCode是否异常，如果异常就fail
         //异常的逻辑需要根据具体项目规定来设定
-        if (response.resultCode == null) {
+        if (response.code == null) {
             listener.onFailure();
         }
 
