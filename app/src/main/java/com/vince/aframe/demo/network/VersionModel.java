@@ -1,4 +1,4 @@
-package com.vince.aframe.business.test.network;
+package com.vince.aframe.demo.network;
 
 import com.vince.aframe.base.net.response.BaseBean;
 

@@ -1,4 +1,4 @@
-package com.vince.aframe.base.ui;
+package com.vince.aframe.base.ui.activity;
 
 import android.app.Activity;
 

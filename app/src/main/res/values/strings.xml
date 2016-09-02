@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AFrame</string>
+
+    <!--下拉刷新相关-->
+    <string name="refresh_normal">恒大金服荣誉出品</string>
+    <string name="refresh_pulling">下拉刷新</string>
+    <string name="refresh_release_refresh">释放即可刷新</string>
 </resources>

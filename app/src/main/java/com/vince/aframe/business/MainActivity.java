@@ -1,37 +1,56 @@
 package com.vince.aframe.business;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.vince.aframe.R;
-import com.vince.aframe.base.net.protocol.listener.IRequestListener;
-import com.vince.aframe.base.ui.BaseActivity;
-import com.vince.aframe.business.test.network.NetTestResponse;
-import com.vince.aframe.business.test.network.TestNetProto;
+import com.vince.aframe.base.ui.activity.BaseActivity;
+import com.vince.aframe.demo.network.NetTestActivity;
+import com.vince.aframe.demo.refresh.TestRefreshListActivity;
 
 public class MainActivity extends BaseActivity {
+
+    private Button btnNet;
+    private Button btnRefreshListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        requestTestNetData();
+
+        btnNet = (Button) findViewById(R.id.btn_net);
+        btnRefreshListView = (Button) findViewById(R.id.btn_refresh_list);
+
+
+        initListener();
     }
 
-    private void requestTestNetData(){
-        TestNetProto proto = new TestNetProto(new IRequestListener() {
+    private void initListener() {
+        View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
-            public void onSuccess(Object response) {
-                if(response instanceof NetTestResponse){
-                    NetTestResponse respone = (NetTestResponse) response;
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.btn_net:
+                        toActivity(NetTestActivity.class);
+                        break;
+                    case R.id.btn_refresh_list:
+                        toActivity(TestRefreshListActivity.class);
+                        break;
+                    default:
+                        break;
                 }
             }
-
-            @Override
-            public void onFailure() {
-                int a;
-
-            }
-        });
-        proto.send();
+        };
+        btnNet.setOnClickListener(clickListener);
+        btnRefreshListView.setOnClickListener(clickListener);
     }
+
+    private void toActivity(Class activity) {
+        Intent it = new Intent(this, activity);
+        startActivity(it);
+    }
+
+
 }
