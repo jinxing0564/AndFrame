@@ -112,13 +112,18 @@ public class RefreshHandler implements IRefreshHandler {
         if (mStatus != STATUS_PULLING) {
             return;
         }
-        if (mStatus == STATUS_PULLING && headerView.getTopMargin() > 0) {
-            setStatus(STATUS_REFRESHING);
-            viewExecutor.onRefresh();
+        if (headerView.getTopMargin() > 0) {
+            doRefresh();
         } else {
             setStatus(STATUS_FINSHING);
         }
         resetHeaderWhenRelease();
+    }
+
+    private void doRefresh() {
+        setStatus(STATUS_REFRESHING);
+        viewExecutor.onRefresh();
+        headerView.refreshing();
     }
 
     private boolean isScrolledOnY() {
@@ -133,6 +138,8 @@ public class RefreshHandler implements IRefreshHandler {
         int curMargin = -headerHeight + margin;
         headerView.updateMargin(curMargin);
         if (mStatus == STATUS_PULLING) {
+            headerView.showImg(RefreshHeaderView.IMGKEY_LOADING);
+            headerView.animateUporDown(margin);
             if (curMargin > 0) {
                 headerView.setHintText(R.string.refresh_release_refresh);
             } else {
@@ -147,29 +154,38 @@ public class RefreshHandler implements IRefreshHandler {
     private void onRefreshFinish() {
         updateHeader(0);
         setStatus(STATUS_NORMAL);
+        headerView.reset();
     }
 
     private void resetHeaderWhenRelease() {
         if (mStatus == STATUS_REFRESHING) {
             updateHeader(headerHeight);
         } else {
-            hideHeader();
+            finishRefresh();
         }
     }
 
-    private void hideHeader() {
-        int sY = headerView.getTopMargin() + headerHeight;
+    private void finishRefresh() {
+        final int sY = headerView.getTopMargin() + headerHeight;
         if (sY <= 0) {
             onRefreshFinish();
+            return;
         }
-        viewExecutor.startScroll(0, sY, 0, -sY, DURATION, new OnScrollListener() {
+        headerView.showImgAll();
+        headerView.animationScale(new RefreshHeaderView.ScaleAniListener() {
             @Override
-            public void onScroll(int scrollY, boolean isFinish) {
-                if (!isFinish) {
-                    updateHeader(scrollY);
-                } else {
-                    onRefreshFinish();
-                }
+            public void onScaleAniFinish() {
+                headerView.showImg(RefreshHeaderView.IMGKEY_NORMAL);
+                viewExecutor.startScroll(0, sY, 0, -sY, DURATION, new OnScrollListener() {
+                    @Override
+                    public void onScroll(int scrollY, boolean isFinish) {
+                        if (!isFinish) {
+                            updateHeader(scrollY);
+                        } else {
+                            onRefreshFinish();
+                        }
+                    }
+                });
             }
         });
     }
@@ -178,24 +194,18 @@ public class RefreshHandler implements IRefreshHandler {
     public void stopRefresh() {
         if (mStatus == STATUS_REFRESHING) {
             setStatus(STATUS_FINSHING);
-            hideHeader();
+            finishRefresh();
         }
     }
 
     public interface ViewExecutor {
-        //        void init(Context context);
-//        void enableLoad(Context context);
         boolean firstItemIsVisible();
 
-        //        boolean lastItemIsVisible();
         void startScroll(int startX, int startY, int dx, int dy, int duration, OnScrollListener scrollListener);
 
         void onRefresh();
 
-        //        void onLoad();
-//        void onInvalidate();
         void onSelectionFirst();
-//        void setScrolling(boolean scrolling);
     }
 
     public interface OnScrollListener {
