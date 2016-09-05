@@ -24,4 +24,11 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:text="测试下拉刷新ListView"/>
+
+    <Button
+        android:id="@+id/btn_refresh_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:text="测试下拉刷新ScrollView"/>
 </LinearLayout>

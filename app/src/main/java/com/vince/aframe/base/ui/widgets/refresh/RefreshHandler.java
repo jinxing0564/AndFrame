@@ -1,6 +1,7 @@
 package com.vince.aframe.base.ui.widgets.refresh;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewTreeObserver;
 
@@ -82,6 +83,7 @@ public class RefreshHandler implements IRefreshHandler {
         endX = (int) ev.getX();
         endY = (int) ev.getY();
         int deltY = endY - startY - CRITICALSIZE;
+        Log.d("RefreshHandler", "isFirst = " + viewExecutor.firstItemIsVisible());
         if ((viewExecutor.firstItemIsVisible() && deltY > 0 && isPullDown())
                 || headerView.getTopMargin() > -headerHeight) {
             if (!isPulling) {

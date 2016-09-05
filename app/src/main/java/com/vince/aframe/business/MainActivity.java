@@ -9,11 +9,13 @@ import com.vince.aframe.R;
 import com.vince.aframe.base.ui.activity.BaseActivity;
 import com.vince.aframe.demo.network.NetTestActivity;
 import com.vince.aframe.demo.refresh.TestRefreshListActivity;
+import com.vince.aframe.demo.refresh.TestRefreshScrollActivity;
 
 public class MainActivity extends BaseActivity {
 
     private Button btnNet;
     private Button btnRefreshListView;
+    private Button btnRefreshScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +24,7 @@ public class MainActivity extends BaseActivity {
 
         btnNet = (Button) findViewById(R.id.btn_net);
         btnRefreshListView = (Button) findViewById(R.id.btn_refresh_list);
-
-
+        btnRefreshScrollView = (Button) findViewById(R.id.btn_refresh_scroll);
         initListener();
     }
 
@@ -38,6 +39,8 @@ public class MainActivity extends BaseActivity {
                     case R.id.btn_refresh_list:
                         toActivity(TestRefreshListActivity.class);
                         break;
+                    case R.id.btn_refresh_scroll:
+                        toActivity(TestRefreshScrollActivity.class);
                     default:
                         break;
                 }
@@ -45,6 +48,7 @@ public class MainActivity extends BaseActivity {
         };
         btnNet.setOnClickListener(clickListener);
         btnRefreshListView.setOnClickListener(clickListener);
+        btnRefreshScrollView.setOnClickListener(clickListener);
     }
 
     private void toActivity(Class activity) {
