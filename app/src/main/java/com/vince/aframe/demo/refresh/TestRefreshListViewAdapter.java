@@ -36,7 +36,7 @@ public class TestRefreshListViewAdapter extends BaseAdapter {
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             holder.textView.setLayoutParams(params);
-            holder.textView.setPadding(20, 40, 20, 40);
+            holder.textView.setPadding(20, 80, 20, 80);
             holder.textView.setBackgroundResource(R.color.white);
             convertView = holder.textView;
             convertView.setTag(holder);

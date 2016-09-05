@@ -43,7 +43,6 @@ public class RefreshListView extends ListView implements RefreshHandler.ViewExec
         refreshHandler = new RefreshHandler(context, this);
         RefreshHeaderView headerView = refreshHandler.getHeaderView();
         addHeaderView(headerView, null, false);
-
     }
 
     public void setOnRefreshListener(OnRefreshListener listener) {
@@ -65,7 +64,7 @@ public class RefreshListView extends ListView implements RefreshHandler.ViewExec
                     return true;
                 }
                 break;
-            case MotionEvent.ACTION_UP:
+            default:
                 refreshHandler.onMotionDefault(ev);
                 break;
         }

@@ -23,6 +23,8 @@ public class RefreshHandler implements IRefreshHandler {
     private int startY = -1;
     private int endX = -1;
     private int endY = -1;
+    private int startPullY = -1;
+    private boolean isPulling = false;
     private final int CRITICALSIZE = ScreenUtil.dipToPixel(30);
     private final float SCROLL_RATIO = 1.8f;
     private final int DURATION = 1000;
@@ -40,7 +42,7 @@ public class RefreshHandler implements IRefreshHandler {
     public RefreshHeaderView getHeaderView() {
         if (headerView == null) {
             headerView = new RefreshHeaderView(context);
-//          headerView.setOnDataRefreshFinishListener(this);
+            headerView.setHintColor(R.color.color_999999);
             headerView.getViewTreeObserver().addOnGlobalLayoutListener(
                     new ViewTreeObserver.OnGlobalLayoutListener() {
                         @SuppressWarnings("deprecation")
@@ -52,66 +54,56 @@ public class RefreshHandler implements IRefreshHandler {
                                     .removeGlobalOnLayoutListener(this);
                         }
                     });
-            headerView.setHintColor(R.color.color_999999);
         }
         return headerView;
     }
 
-    private void setStatus(int status) {
-        if (mStatus == status) {
-            return;
-        }
-//        switch (status) {
-//            case STATUS_NORMAL:
-//                break;
-//            case STATUS_PULLING:
-//                break;
-//            case STATUS_REFRESHING:
-//                break;
-//            case STATUS_FINSHING:
-//                break;
-//        }
-        mStatus = status;
-    }
-
     @Override
     public void onMotionDown(MotionEvent ev) {
-        if (mStatus != STATUS_NORMAL) {
+        if (layouting() || mStatus != STATUS_NORMAL) {
             return;
         }
         startX = (int) ev.getX();
         startY = (int) ev.getY();
+        isPulling = false;
     }
 
     @Override
     public boolean onMotionMove(MotionEvent ev) {
-        if (mStatus == STATUS_REFRESHING || mStatus == STATUS_FINSHING) {
+        if (layouting() || mStatus == STATUS_REFRESHING || mStatus == STATUS_FINSHING) {
             return false;
         }
         if (startY == -1) {
             startX = (int) ev.getX();
             startY = (int) ev.getY();
+            isPulling = false;
             return false;
         }
         endX = (int) ev.getX();
         endY = (int) ev.getY();
         int deltY = endY - startY - CRITICALSIZE;
-        if ((deltY <= 0 || !isPullDown()) && headerView.getTopMargin() <= -headerHeight) {
-            return false;
-        }
-        if (viewExecutor.firstItemIsVisible()) {
+        if ((viewExecutor.firstItemIsVisible() && deltY > 0 && isPullDown())
+                || headerView.getTopMargin() > -headerHeight) {
+            if (!isPulling) {
+                startPullY = endY;
+            }
+            isPulling = true;
             setStatus(STATUS_PULLING);
-            updateHeader((int) (deltY / SCROLL_RATIO));
+            updateHeader((int) ((endY - startPullY) / SCROLL_RATIO));
             return true;
         }
+        updateHeader(0);
+        headerView.reset();
+        startPullY = endY;
         return false;
     }
 
     @Override
     public void onMotionDefault(MotionEvent ev) {
-        if (mStatus != STATUS_PULLING) {
+        if (layouting() || mStatus != STATUS_PULLING) {
             return;
         }
+        isPulling = false;
         if (headerView.getTopMargin() > 0) {
             doRefresh();
         } else {
@@ -120,14 +112,29 @@ public class RefreshHandler implements IRefreshHandler {
         resetHeaderWhenRelease();
     }
 
+    @Override
+    public void stopRefresh() {
+        if (mStatus == STATUS_REFRESHING) {
+            setStatus(STATUS_FINSHING);
+            finishRefreshWithScaleAnimation();
+        }
+    }
+
+    private boolean layouting() {
+        return headerHeight == -1;
+    }
+
+    private void setStatus(int status) {
+        if (mStatus == status) {
+            return;
+        }
+        mStatus = status;
+    }
+
     private void doRefresh() {
         setStatus(STATUS_REFRESHING);
         viewExecutor.onRefresh();
         headerView.refreshing();
-    }
-
-    private boolean isScrolledOnY() {
-        return Math.abs(endY - startY) > Math.abs(endX - startX);
     }
 
     private boolean isPullDown() {
@@ -135,6 +142,9 @@ public class RefreshHandler implements IRefreshHandler {
     }
 
     private void updateHeader(int margin) {
+        if (margin < 0) {
+            margin = 0;
+        }
         int curMargin = -headerHeight + margin;
         headerView.updateMargin(curMargin);
         if (mStatus == STATUS_PULLING) {
@@ -148,7 +158,6 @@ public class RefreshHandler implements IRefreshHandler {
         } else {
             headerView.setHintText(R.string.refresh_normal);
         }
-//        viewExecutor.onSelectionFirst();
     }
 
     private void onRefreshFinish() {
@@ -161,11 +170,11 @@ public class RefreshHandler implements IRefreshHandler {
         if (mStatus == STATUS_REFRESHING) {
             updateHeader(headerHeight);
         } else {
-            finishRefresh();
+            scrollToFinish();
         }
     }
 
-    private void finishRefresh() {
+    private void finishRefreshWithScaleAnimation() {
         final int sY = headerView.getTopMargin() + headerHeight;
         if (sY <= 0) {
             onRefreshFinish();
@@ -176,26 +185,28 @@ public class RefreshHandler implements IRefreshHandler {
             @Override
             public void onScaleAniFinish() {
                 headerView.showImg(RefreshHeaderView.IMGKEY_NORMAL);
-                viewExecutor.startScroll(0, sY, 0, -sY, DURATION, new OnScrollListener() {
-                    @Override
-                    public void onScroll(int scrollY, boolean isFinish) {
-                        if (!isFinish) {
-                            updateHeader(scrollY);
-                        } else {
-                            onRefreshFinish();
-                        }
-                    }
-                });
+                scrollToFinish();
             }
         });
     }
 
-    @Override
-    public void stopRefresh() {
-        if (mStatus == STATUS_REFRESHING) {
-            setStatus(STATUS_FINSHING);
-            finishRefresh();
+    private void scrollToFinish() {
+        final int sY = headerView.getTopMargin() + headerHeight;
+        if (sY <= 0) {
+            onRefreshFinish();
+            return;
         }
+        int scaleTime = DURATION * sY / headerHeight;
+        viewExecutor.startScroll(0, sY, 0, -sY, scaleTime, new OnScrollListener() {
+            @Override
+            public void onScroll(int scrollY, boolean isFinish) {
+                if (!isFinish) {
+                    updateHeader(scrollY);
+                } else {
+                    onRefreshFinish();
+                }
+            }
+        });
     }
 
     public interface ViewExecutor {

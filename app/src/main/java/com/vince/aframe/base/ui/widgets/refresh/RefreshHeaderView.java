@@ -2,7 +2,6 @@ package com.vince.aframe.base.ui.widgets.refresh;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vince.aframe.R;
-import com.vince.aframe.base.tools.ViewShowMutexHandler;
 import com.vince.aframe.base.tools.ScreenUtil;
+import com.vince.aframe.base.tools.ViewShowMutexHandler;
 
 /**
  * Created by tianweixin on 2016-8-29.
@@ -37,9 +36,7 @@ public class RefreshHeaderView extends LinearLayout {
     private final int ROTATE_ANIM_DURATION = 500;//动画旋转完成时间
     private final int SCALE_MAGNIFY_ANIM_DURATION = 300;  //动画放大完成时间
     private final int SCALE_NARROWING_ANIM_DURATION = 500;  //动画缩小完成时间
-    private RotateAnimation animationLoading;
-    private ScaleAnimation aninationMagnify;
-    private ScaleAnimation aninationNarrowing;
+    private final float DISTANCE_TO_ANGLE_FACTOR = 4f; //下拉距离转换为loading图片选装角度的因子
     float rotateLastAngle = 0;
 
     public RefreshHeaderView(Context context) {
@@ -69,27 +66,6 @@ public class RefreshHeaderView extends LinearLayout {
         imgMuteKey = R.id.imageView;
         mutexHandler.showInLayout(imgMuteKey, ivLoading);
         mutexHandler.showInLayout(imgMuteKey, ivNormal);
-
-        initAnimation();
-    }
-
-    private void initAnimation() {
-        //自动旋转
-        animationLoading = new RotateAnimation(0, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animationLoading.setDuration(ROTATE_ANIM_DURATION);
-        animationLoading.setRepeatCount(-1);
-        animationLoading.setInterpolator(new LinearInterpolator());
-        animationLoading.setFillAfter(true);
-
-        //放大
-        aninationMagnify = new ScaleAnimation(0, 1.0f, 0, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        aninationMagnify.setDuration(SCALE_MAGNIFY_ANIM_DURATION);
-        aninationMagnify.setFillAfter(true);
-
-        //缩小
-        aninationNarrowing = new ScaleAnimation(1.0f, 0, 1.0f, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        aninationNarrowing.setDuration(SCALE_NARROWING_ANIM_DURATION);
-        aninationNarrowing.setFillAfter(true);
     }
 
     public void setHintText(int txtRes) {
@@ -130,42 +106,20 @@ public class RefreshHeaderView extends LinearLayout {
 
     public void refreshing() {
         showImg(IMGKEY_LOADING);
-        clearAni();
-        ivLoading.setAnimation(animationLoading);
-    }
-
-    private void clearAni() {
-        ivLoading.clearAnimation();
-        ivNormal.clearAnimation();
-    }
-
-    public void reset() {
-        clearAni();
-        rotateLastAngle = 0;
-        showImg(IMGKEY_NORMAL);
+        clearAnim();
+        ivLoading.setAnimation(getAnimationLoading());
     }
 
     public void animateUporDown(int distance) {
-        showImg(IMGKEY_LOADING);
-        int distanceDp = ScreenUtil.pixelToDip(distance);
-        float targetAngle = distanceDp * 6f;
-        targetAngle = targetAngle % 360f;
-        if (targetAngle == 0) {
-            return;
-        }
-        Log.d("jinxing", "distanceDp = " + distanceDp + " targetAngle = " + targetAngle);
-        RotateAnimation animationRotate = new RotateAnimation(rotateLastAngle, targetAngle, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animationRotate.setDuration(0);
-        animationRotate.setFillAfter(true);
-        clearAni();
-        ivLoading.setAnimation(animationRotate);
+        float targetAngle = getAngleFromDistance(distance);
+        RotateAnimation pullRotateAnimation = getPullRotateAnimation(rotateLastAngle, targetAngle);
+        clearAnim();
+        ivLoading.setAnimation(pullRotateAnimation);
         rotateLastAngle = targetAngle;
     }
 
     public void animationScale(final ScaleAniListener scaleAniListener) {
-        showImgAll();
-        clearAni();
-        initAnimation();
+        ScaleAnimation aninationMagnify = getAninationMagnify();
         aninationMagnify.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -182,8 +136,55 @@ public class RefreshHeaderView extends LinearLayout {
             public void onAnimationRepeat(Animation animation) {
             }
         });
+        clearAnim();
         ivNormal.setAnimation(aninationMagnify);
-        ivLoading.setAnimation(aninationNarrowing);
+        ivLoading.setAnimation(getAninationNarrowing());
+    }
+
+    public void reset() {
+        clearAnim();
+        rotateLastAngle = 0;
+        showImg(IMGKEY_NORMAL);
+    }
+
+    private RotateAnimation getAnimationLoading() {
+        RotateAnimation animationLoading = new RotateAnimation(0, 359f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animationLoading.setDuration(ROTATE_ANIM_DURATION);
+        animationLoading.setRepeatCount(-1);
+        animationLoading.setInterpolator(new LinearInterpolator());
+        animationLoading.setFillAfter(true);
+        return animationLoading;
+    }
+
+    private ScaleAnimation getAninationMagnify() {
+        ScaleAnimation aninationMagnify = new ScaleAnimation(0, 1.0f, 0, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        aninationMagnify.setDuration(SCALE_MAGNIFY_ANIM_DURATION);
+        aninationMagnify.setFillAfter(true);
+        return aninationMagnify;
+    }
+
+    private ScaleAnimation getAninationNarrowing() {
+        ScaleAnimation aninationNarrowing = new ScaleAnimation(1.0f, 0, 1.0f, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        aninationNarrowing.setDuration(SCALE_NARROWING_ANIM_DURATION);
+        aninationNarrowing.setFillAfter(true);
+        return aninationNarrowing;
+    }
+
+    private RotateAnimation getPullRotateAnimation(float startAngle, float endAngle) {
+        RotateAnimation animationRotate = new RotateAnimation(startAngle, endAngle, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animationRotate.setDuration(0);
+        animationRotate.setFillAfter(true);
+        return animationRotate;
+    }
+
+    private float getAngleFromDistance(int distance) {
+        int distanceDp = ScreenUtil.pixelToDip(distance);
+        return distanceDp * DISTANCE_TO_ANGLE_FACTOR;
+    }
+
+    private void clearAnim() {
+        ivLoading.clearAnimation();
+        ivNormal.clearAnimation();
     }
 
     interface ScaleAniListener {
