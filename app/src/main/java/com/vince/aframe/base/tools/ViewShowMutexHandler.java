@@ -13,12 +13,12 @@ import java.util.Map;
  * 存储需要显示互斥的多个view组
  */
 
-public class HDViewShowMutexHandler {
+public class ViewShowMutexHandler {
     //List:存储需要不可同时显示的view
     //Map:List组成的Map
     private Map<Integer, List<View>> viewMap;
 
-    public HDViewShowMutexHandler() {
+    public ViewShowMutexHandler() {
         viewMap = new HashMap<>();
     }
 

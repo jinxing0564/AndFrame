@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vince.aframe.R;
-import com.vince.aframe.base.tools.HDViewShowMutexHandler;
+import com.vince.aframe.base.tools.ViewShowMutexHandler;
 import com.vince.aframe.base.tools.ScreenUtil;
 
 /**
@@ -31,16 +31,16 @@ public class RefreshHeaderView extends LinearLayout {
     private ImageView ivLoading;
     private TextView tvHint;
     private int topMargin;
-    private HDViewShowMutexHandler mutexHandler;
+    private ViewShowMutexHandler mutexHandler;
     private int imgMuteKey;
 
     private final int ROTATE_ANIM_DURATION = 500;//动画旋转完成时间
     private final int SCALE_MAGNIFY_ANIM_DURATION = 300;  //动画放大完成时间
     private final int SCALE_NARROWING_ANIM_DURATION = 500;  //动画缩小完成时间
     private RotateAnimation animationLoading;
-    float rotateLastAngle = 0;
     private ScaleAnimation aninationMagnify;
     private ScaleAnimation aninationNarrowing;
+    float rotateLastAngle = 0;
 
     public RefreshHeaderView(Context context) {
         super(context);
@@ -65,7 +65,7 @@ public class RefreshHeaderView extends LinearLayout {
         tvHint = (TextView) view.findViewById(R.id.text_hint);
         setPadding(ScreenUtil.dipToPixel(5), 0, ScreenUtil.dipToPixel(5), 0);
 
-        mutexHandler = new HDViewShowMutexHandler();
+        mutexHandler = new ViewShowMutexHandler();
         imgMuteKey = R.id.imageView;
         mutexHandler.showInLayout(imgMuteKey, ivLoading);
         mutexHandler.showInLayout(imgMuteKey, ivNormal);
