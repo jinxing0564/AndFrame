@@ -8,6 +8,8 @@ import android.view.ViewTreeObserver;
 import com.vince.aframe.R;
 import com.vince.aframe.base.tools.ScreenUtil;
 
+import static com.vince.aframe.base.ui.widgets.refresh.RefreshHeaderView.IMGKEY_LOADING;
+
 /**
  * Created by tianweixin on 2016-8-29.
  */
@@ -136,7 +138,8 @@ public class RefreshHandler implements IRefreshHandler {
     private void doRefresh() {
         setStatus(STATUS_REFRESHING);
         viewExecutor.onRefresh();
-        headerView.refreshing();
+        headerView.showImg(IMGKEY_LOADING);
+        headerView.animateLoading();
     }
 
     private boolean isPullDown() {
@@ -150,7 +153,7 @@ public class RefreshHandler implements IRefreshHandler {
         int curMargin = -headerHeight + margin;
         headerView.updateMargin(curMargin);
         if (mStatus == STATUS_PULLING) {
-            headerView.showImg(RefreshHeaderView.IMGKEY_LOADING);
+            headerView.showImg(IMGKEY_LOADING);
             headerView.animateUporDown(margin);
             if (curMargin > 0) {
                 headerView.setHintText(R.string.refresh_release_refresh);
@@ -183,7 +186,7 @@ public class RefreshHandler implements IRefreshHandler {
             return;
         }
         headerView.showImgAll();
-        headerView.animationScale(new RefreshHeaderView.ScaleAniListener() {
+        headerView.animateScale(new RefreshHeaderView.ScaleAniListener() {
             @Override
             public void onScaleAniFinish() {
                 headerView.showImg(RefreshHeaderView.IMGKEY_NORMAL);

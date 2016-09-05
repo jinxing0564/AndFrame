@@ -104,8 +104,7 @@ public class RefreshHeaderView extends LinearLayout {
         mutexHandler.showAll(imgMuteKey);
     }
 
-    public void refreshing() {
-        showImg(IMGKEY_LOADING);
+    public void animateLoading() {
         clearAnim();
         ivLoading.setAnimation(getAnimationLoading());
     }
@@ -118,7 +117,7 @@ public class RefreshHeaderView extends LinearLayout {
         rotateLastAngle = targetAngle;
     }
 
-    public void animationScale(final ScaleAniListener scaleAniListener) {
+    public void animateScale(final ScaleAniListener scaleAniListener) {
         ScaleAnimation aninationMagnify = getAninationMagnify();
         aninationMagnify.setAnimationListener(new Animation.AnimationListener() {
             @Override
