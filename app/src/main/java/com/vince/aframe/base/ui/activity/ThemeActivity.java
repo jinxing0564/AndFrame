@@ -50,19 +50,6 @@ public class ThemeActivity extends Activity {
         initTopTitle(view);
     }
 
-    @Override
-    public Resources getResources() {
-        try {
-            Resources res = super.getResources();
-            Configuration config = new Configuration();
-            config.setToDefaults();
-            res.updateConfiguration(config, res.getDisplayMetrics());
-            return res;
-        } catch (Exception e) {
-            return super.getResources();
-        }
-    }
-
     private void initTopTitle(View contentView) {
         if (titleView != null || contentView == null) {
             return;
@@ -71,7 +58,6 @@ public class ThemeActivity extends Activity {
             titleView = LayoutInflater.from(this).inflate(R.layout.common_layout_top_title, null);
             titleView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.top_title_height)));
             ((LinearLayout) contentView).addView(titleView, 0);
-
             back = (LinearLayout) titleView.findViewById(R.id.lyt_back);
             title = (TextView) titleView.findViewById(R.id.tv_top_title);
             tvRight = (TextView) titleView.findViewById(R.id.tv_right);
@@ -96,70 +82,40 @@ public class ThemeActivity extends Activity {
         }
     }
 
-    protected void onBackClick() {
+    public void onBackClick() {
         this.onBackPressed();
     }
 
-    protected void onRightClick() {
+    public void onRightClick() {
 
-    }
-
-    public void noTitle() {
-        if (titleView == null) {
-            return;
-        }
-        titleView.setVisibility(View.GONE);
     }
 
     public void needBack(boolean need) {
-        if (back == null) {
-            return;
-        }
-        if (need) {
-            back.setVisibility(View.VISIBLE);
-        } else {
-            back.setVisibility(View.GONE);
-        }
+        needView(need, back);
     }
 
-    public void needRight(boolean need) {
-        if (right == null) {
-            return;
-        }
-        if (need) {
-            right.setVisibility(View.VISIBLE);
-        } else {
-            right.setVisibility(View.GONE);
-        }
-    }
-
-    public void needRightIcon(boolean need) {
-        if (ivRight == null) {
-            return;
-        }
-        if (need) {
-            ivRight.setVisibility(View.VISIBLE);
-        } else {
-            ivRight.setVisibility(View.GONE);
-        }
-    }
-
-    public void needRightText(boolean need) {
-        if (tvRight == null) {
-            return;
-        }
-        if (need) {
-            tvRight.setVisibility(View.VISIBLE);
-        } else {
-            tvRight.setVisibility(View.GONE);
-        }
+    public void noTitle() {
+        needView(false, titleView);
     }
 
     public void setTitle(String t) {
-        if (title == null) {
-            return;
-        }
-        title.setText(t);
+        setText(title, t);
+    }
+
+    public void needRight(boolean need) {
+        needView(need, ivRight);
+    }
+
+    public void needRightText(boolean need) {
+        needView(need, tvRight);
+    }
+
+    public void needRightIcon(boolean need) {
+        needView(need, ivRight);
+    }
+
+    public void setRightText(String t) {
+        setText(tvRight, t);
     }
 
     public void setRightIcon(int resId) {
@@ -169,10 +125,35 @@ public class ThemeActivity extends Activity {
         ivRight.setImageResource(resId);
     }
 
-    public void setRightText(String t) {
-        if (tvRight == null) {
+    private void needView(boolean need, View view) {
+        if (view == null) {
             return;
         }
-        tvRight.setText(t);
+        if (need) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
+
+    private void setText(TextView tv, String t) {
+        if (tv == null) {
+            return;
+        }
+        tv.setText(t);
+    }
+
+    @Override
+    public Resources getResources() {
+        try {
+            Resources res = super.getResources();
+            Configuration config = new Configuration();
+            config.setToDefaults();
+            res.updateConfiguration(config, res.getDisplayMetrics());
+            return res;
+        } catch (Exception e) {
+            return super.getResources();
+        }
+    }
+
 }

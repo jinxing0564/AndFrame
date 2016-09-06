@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.vince.aframe.R;
-import com.vince.aframe.base.ui.activity.BaseActivity;
+import com.vince.aframe.base.ui.activity.BaseBizActivity;
 import com.vince.aframe.demo.network.NetTestActivity;
 import com.vince.aframe.demo.refresh.TestRefreshListActivity;
 import com.vince.aframe.demo.refresh.TestRefreshScrollActivity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseBizActivity {
 
     private Button btnNet;
     private Button btnRefreshListView;

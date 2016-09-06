@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.vince.aframe.R;
-import com.vince.aframe.base.ui.activity.BaseActivity;
+import com.vince.aframe.base.ui.activity.BaseBizActivity;
 import com.vince.aframe.base.ui.widgets.refresh.OnRefreshListener;
 import com.vince.aframe.base.ui.widgets.refresh.RefreshListView;
 
@@ -15,7 +15,7 @@ import com.vince.aframe.base.ui.widgets.refresh.RefreshListView;
  * Created by tianweixin on 2016-9-2.
  */
 
-public class TestRefreshListActivity extends BaseActivity {
+public class TestRefreshListActivity extends BaseBizActivity {
 
     private RefreshListView listView;
     private Handler hander;

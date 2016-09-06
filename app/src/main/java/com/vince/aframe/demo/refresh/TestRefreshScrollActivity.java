@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.vince.aframe.R;
-import com.vince.aframe.base.ui.activity.BaseActivity;
+import com.vince.aframe.base.ui.activity.BaseBizActivity;
 import com.vince.aframe.base.ui.widgets.refresh.OnRefreshListener;
 import com.vince.aframe.base.ui.widgets.refresh.RefreshScrollView;
 
@@ -12,7 +12,7 @@ import com.vince.aframe.base.ui.widgets.refresh.RefreshScrollView;
  * Created by tianweixin on 2016-9-5.
  */
 
-public class TestRefreshScrollActivity extends BaseActivity {
+public class TestRefreshScrollActivity extends BaseBizActivity {
     private RefreshScrollView refreshScrollview;
     private Handler hander;
 

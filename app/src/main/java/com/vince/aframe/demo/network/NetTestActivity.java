@@ -6,12 +6,12 @@ import android.widget.Toast;
 
 import com.vince.aframe.R;
 import com.vince.aframe.base.net.protocol.listener.IRequestListener;
-import com.vince.aframe.base.ui.activity.BaseActivity;
+import com.vince.aframe.base.ui.activity.BaseBizActivity;
 
 /**
  * Created by tianweixin on 2016-7-28.
  */
-public class NetTestActivity extends BaseActivity {
+public class NetTestActivity extends BaseBizActivity {
 
     private TextView tvJson;
 
