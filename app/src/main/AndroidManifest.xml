@@ -18,12 +18,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".demo.network.NetTestActivity">
+        <activity android:name=".demo.network.NetTestActivity"
+                  android:theme="@style/AppActTheme">
         </activity>
 
-        <activity android:name=".demo.refresh.TestRefreshListActivity">
+        <activity android:name=".demo.refresh.TestRefreshListActivity"
+                  android:theme="@style/AppActTheme">
         </activity>
-        <activity android:name=".demo.refresh.TestRefreshScrollActivity">
+        <activity android:name=".demo.refresh.TestRefreshScrollActivity"
+                  android:theme="@style/AppActTheme">
         </activity>
     </application>
 

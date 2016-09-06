@@ -21,6 +21,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        disableSwipeBack();
 
         btnNet = (Button) findViewById(R.id.btn_net);
         btnRefreshListView = (Button) findViewById(R.id.btn_refresh_list);
