@@ -44,5 +44,11 @@ public class TestRefreshListActivity extends BaseActivity {
                 Toast.makeText(TestRefreshListActivity.this, "list click", Toast.LENGTH_SHORT).show();
             }
         });
+        topTitle();
+    }
+
+    private void topTitle() {
+        setTitle("测试RefreshListView");
+        needRight(false);
     }
 }

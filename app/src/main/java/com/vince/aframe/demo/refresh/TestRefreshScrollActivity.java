@@ -33,5 +33,11 @@ public class TestRefreshScrollActivity extends BaseActivity {
                 }, 3000);
             }
         });
+        topTitle();
+    }
+
+    private void topTitle() {
+        setTitle("测试RefreshScrollView");
+        needRight(false);
     }
 }

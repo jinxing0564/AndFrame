@@ -9,5 +9,4 @@ public class SwipeBackConstants {
     public static final String ACTION_ACTIVITY_SWIPE = "activity_swipe";
     public static final String CUR_SWIPE_ACTIVITY = "curSwipeActivity";
     public static final String CUR_SWIPE_X = "curSwipeX";
-//    public static final String Swipe_layout_width
 }

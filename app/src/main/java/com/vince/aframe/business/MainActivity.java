@@ -27,6 +27,13 @@ public class MainActivity extends BaseActivity {
         btnRefreshListView = (Button) findViewById(R.id.btn_refresh_list);
         btnRefreshScrollView = (Button) findViewById(R.id.btn_refresh_scroll);
         initListener();
+        topTitle();
+    }
+
+    private void topTitle() {
+        setTitle("首页");
+        needRight(false);
+        needBack(false);
     }
 
     private void initListener() {
@@ -56,6 +63,5 @@ public class MainActivity extends BaseActivity {
         Intent it = new Intent(this, activity);
         startActivity(it);
     }
-
 
 }

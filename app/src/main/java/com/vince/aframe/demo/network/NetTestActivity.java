@@ -21,6 +21,12 @@ public class NetTestActivity extends BaseActivity {
         setContentView(R.layout.demo_activity_network);
         tvJson = (TextView) findViewById(R.id.tv_json);
         requestTestNetData();
+        topTitle();
+    }
+
+    private void topTitle() {
+        setTitle("测试网络服务框架");
+        needRight(false);
     }
 
     private void requestTestNetData() {

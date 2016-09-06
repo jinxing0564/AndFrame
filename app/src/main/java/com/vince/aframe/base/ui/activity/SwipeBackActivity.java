@@ -18,6 +18,7 @@ import com.vince.aframe.base.ui.widgets.swipeback.SwipeBackAdapter;
 import com.vince.aframe.base.ui.widgets.swipeback.SwipeBackConstants;
 import com.vince.aframe.base.ui.widgets.swipeback.SwipeBackLayout;
 
+
 /**
  * Created by tianweixin on 2016-9-5.
  */
@@ -48,17 +49,14 @@ public class SwipeBackActivity extends ThemeActivity implements SwipeBackAdapter
 
     @Override
     public void setContentView(View view, LayoutParams params) {
-        swipeBackLayout = (SwipeBackLayout) LayoutInflater.from(this).inflate(R.layout.swipe_back_layout, null);
+        initSwipeLayout();
         FrameLayout flytContent = (FrameLayout) swipeBackLayout.findViewById(R.id.flyt_content);
         flytContent.addView(view);
         super.setContentView(swipeBackLayout, params);
-        initSwipeLayout();
     }
 
     private void initSwipeLayout() {
-        if (swipeBackLayout == null) {
-            return;
-        }
+        swipeBackLayout = (SwipeBackLayout) LayoutInflater.from(this).inflate(R.layout.swipe_back_layout, null);
         swipeBackLayout.setAdapter(this);
         swipeBackLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @SuppressLint("NewApi")
