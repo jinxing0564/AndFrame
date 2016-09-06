@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.vince.aframe.R;
 import com.vince.aframe.base.ui.activity.BaseBizActivity;
+import com.vince.aframe.base.ui.prompt.ToastUtils;
 import com.vince.aframe.base.ui.widgets.refresh.OnRefreshListener;
 import com.vince.aframe.base.ui.widgets.refresh.RefreshListView;
 
@@ -41,7 +42,7 @@ public class TestRefreshListActivity extends BaseBizActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(TestRefreshListActivity.this, "list click", Toast.LENGTH_SHORT).show();
+                ToastUtils.showToast("list click", Toast.LENGTH_SHORT);
             }
         });
         topTitle();

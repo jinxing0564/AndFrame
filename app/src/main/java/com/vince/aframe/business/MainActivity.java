@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.vince.aframe.R;
 import com.vince.aframe.app.AFConstants;
 import com.vince.aframe.base.ui.activity.BaseBizActivity;
+import com.vince.aframe.base.ui.prompt.ToastUtils;
 import com.vince.aframe.demo.network.NetTestActivity;
 import com.vince.aframe.demo.refresh.TestRefreshListActivity;
 import com.vince.aframe.demo.refresh.TestRefreshScrollActivity;
@@ -49,7 +50,7 @@ public class MainActivity extends BaseBizActivity {
                 clickBackTimes = 0;
             }
         }, AFConstants.BACK_INTERVAL);
-        Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_SHORT).show();
+        ToastUtils.showToast("再按一次退出应用", Toast.LENGTH_SHORT);
     }
 
     private void topTitle() {
