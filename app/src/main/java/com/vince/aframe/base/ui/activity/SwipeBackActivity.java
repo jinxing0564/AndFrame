@@ -117,7 +117,7 @@ public class SwipeBackActivity extends ThemeActivity implements SwipeBackAdapter
     }
 
     @Override
-    public Class getActivityClass() {
+    public Class<?> getActivityClass() {
         return this.getClass();
     }
 }

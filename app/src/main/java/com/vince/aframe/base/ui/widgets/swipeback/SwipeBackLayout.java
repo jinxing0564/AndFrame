@@ -125,13 +125,14 @@ public class SwipeBackLayout extends LinearLayout {
         if (mScroller.computeScrollOffset()) {
             scrollToAndSendBroadcast(mScroller.getCurrX(), 0);
             postInvalidate();
-        }
-        if (mStatus == STATUS_FREE_SCROLL && mScroller.isFinished()) {
-            mStatus = STATUS_NORMAL;
-        }
-        if (mScroller.isFinished() && mScroller.getCurrX() < -swipeLayoutWidth / 2) {
-            if (mAdapter != null) {
-                mAdapter.back();
+
+            if (mStatus == STATUS_FREE_SCROLL && mScroller.isFinished()) {
+                mStatus = STATUS_NORMAL;
+            }
+            if (mScroller.isFinished() && mScroller.getCurrX() < -swipeLayoutWidth / 2) {
+                if (mAdapter != null) {
+                    mAdapter.back();
+                }
             }
         }
     }

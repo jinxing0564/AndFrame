@@ -7,5 +7,5 @@ package com.vince.aframe.base.ui.widgets.swipeback;
 public interface SwipeBackAdapter {
     void back();
 
-    Class getActivityClass();
+    Class<?> getActivityClass();
 }
