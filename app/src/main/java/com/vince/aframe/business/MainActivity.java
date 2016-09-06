@@ -2,10 +2,13 @@ package com.vince.aframe.business;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.vince.aframe.R;
+import com.vince.aframe.app.AFConstants;
 import com.vince.aframe.base.ui.activity.BaseBizActivity;
 import com.vince.aframe.demo.network.NetTestActivity;
 import com.vince.aframe.demo.refresh.TestRefreshListActivity;
@@ -16,6 +19,9 @@ public class MainActivity extends BaseBizActivity {
     private Button btnNet;
     private Button btnRefreshListView;
     private Button btnRefreshScrollView;
+
+    private int clickBackTimes = 0;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,22 @@ public class MainActivity extends BaseBizActivity {
         btnRefreshScrollView = (Button) findViewById(R.id.btn_refresh_scroll);
         initListener();
         topTitle();
+    }
+
+    @Override
+    public void onBackPressed() {
+        clickBackTimes++;
+        if (clickBackTimes >= 2) {
+            super.onBackPressed();
+            return;
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                clickBackTimes = 0;
+            }
+        }, AFConstants.BACK_INTERVAL);
+        Toast.makeText(this, "再按一次退出应用", Toast.LENGTH_SHORT).show();
     }
 
     private void topTitle() {
