@@ -38,6 +38,12 @@ public class MainActivity extends BaseBizActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        clickBackTimes = 0;
+    }
+
+    @Override
     public void onBackPressed() {
         clickBackTimes++;
         if (clickBackTimes >= 2) {
