@@ -4,13 +4,13 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".app.AFApp"
+        android:name="com.vince.andframe.app.AFApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".business.MainActivity">
+        <activity android:name="com.vince.andframe.business.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -18,14 +18,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".demo.network.NetTestActivity"
+        <activity android:name="com.vince.andframe.demo.network.NetTestActivity"
                   android:theme="@style/AppActTheme">
         </activity>
 
-        <activity android:name=".demo.refresh.TestRefreshListActivity"
+        <activity android:name="com.vince.andframe.demo.refresh.TestRefreshListActivity"
                   android:theme="@style/AppActTheme">
         </activity>
-        <activity android:name=".demo.refresh.TestRefreshScrollActivity"
+        <activity android:name="com.vince.andframe.demo.refresh.TestRefreshScrollActivity"
                   android:theme="@style/AppActTheme">
         </activity>
     </application>

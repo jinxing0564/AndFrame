@@ -4,7 +4,7 @@
               android:layout_height="match_parent"
               android:background="@color/color_efefef"
               android:orientation="vertical">
-    <com.vince.aframe.base.ui.widgets.refresh.RefreshScrollView
+    <com.vince.andframe.base.ui.widgets.refresh.RefreshScrollView
         android:id="@+id/refresh_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -61,6 +61,6 @@
                 android:paddingTop="50dp"
                 android:text="测试下拉刷新ScrollView"/>
         </LinearLayout>
-    </com.vince.aframe.base.ui.widgets.refresh.RefreshScrollView>
+    </com.vince.andframe.base.ui.widgets.refresh.RefreshScrollView>
 
 </LinearLayout>

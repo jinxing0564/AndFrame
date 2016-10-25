@@ -4,11 +4,11 @@
               android:layout_height="match_parent"
               android:background="@color/color_efefef"
               android:orientation="vertical">
-    <com.vince.aframe.base.ui.widgets.refresh.RefreshListView
+    <com.vince.andframe.base.ui.widgets.refresh.RefreshListView
         android:id="@+id/lv_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.vince.aframe.base.ui.widgets.refresh.RefreshListView>
+    </com.vince.andframe.base.ui.widgets.refresh.RefreshListView>
 
 </LinearLayout>
