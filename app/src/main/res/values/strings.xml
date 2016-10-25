@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AFrame</string>
+    <string name="app_name">AndFrame</string>
 
     <!--下拉刷新相关-->
     <string name="refresh_normal">恒大金服荣誉出品</string>
