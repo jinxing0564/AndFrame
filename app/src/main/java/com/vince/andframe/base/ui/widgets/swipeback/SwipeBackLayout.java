@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
@@ -123,6 +124,7 @@ public class SwipeBackLayout extends LinearLayout {
     @Override
     public void computeScroll() {
         if (mScroller.computeScrollOffset()) {
+            Log.d("swipeBack", "cur x = " + mScroller.getCurrX());
             scrollToAndSendBroadcast(mScroller.getCurrX(), 0);
             postInvalidate();
 

@@ -12,6 +12,7 @@ import com.vince.andframe.app.AFConstants;
 import com.vince.andframe.base.ui.activity.BaseBizActivity;
 import com.vince.andframe.base.ui.prompt.ToastUtils;
 import com.vince.andframe.demo.network.NetTestActivity;
+import com.vince.andframe.demo.recycler.DrawerViewActivity;
 import com.vince.andframe.demo.refresh.TestRefreshListActivity;
 import com.vince.andframe.demo.refresh.TestRefreshScrollActivity;
 
@@ -20,6 +21,7 @@ public class MainActivity extends BaseBizActivity {
     private Button btnNet;
     private Button btnRefreshListView;
     private Button btnRefreshScrollView;
+    private Button btnDrawer;
 
     private int clickBackTimes = 0;
     private Handler handler = new Handler();
@@ -33,6 +35,7 @@ public class MainActivity extends BaseBizActivity {
         btnNet = (Button) findViewById(R.id.btn_net);
         btnRefreshListView = (Button) findViewById(R.id.btn_refresh_list);
         btnRefreshScrollView = (Button) findViewById(R.id.btn_refresh_scroll);
+        btnDrawer = (Button) findViewById(R.id.btn_drawer);
         initListener();
         topTitle();
     }
@@ -78,6 +81,10 @@ public class MainActivity extends BaseBizActivity {
                         break;
                     case R.id.btn_refresh_scroll:
                         toActivity(TestRefreshScrollActivity.class);
+                        break;
+                    case R.id.btn_drawer:
+                        toActivity(DrawerViewActivity.class);
+                        break;
                     default:
                         break;
                 }
@@ -86,6 +93,7 @@ public class MainActivity extends BaseBizActivity {
         btnNet.setOnClickListener(clickListener);
         btnRefreshListView.setOnClickListener(clickListener);
         btnRefreshScrollView.setOnClickListener(clickListener);
+        btnDrawer.setOnClickListener(clickListener);
     }
 
     private void toActivity(Class activity) {

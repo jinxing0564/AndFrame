@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.vince.aframe"
-          xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.INTERNET"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.vince.aframe">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="com.vince.andframe.app.AFApp"
@@ -12,22 +13,36 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.vince.andframe.business.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.vince.andframe.demo.network.NetTestActivity"
-                  android:theme="@style/AppActTheme">
+        <activity
+            android:name="com.vince.andframe.demo.network.NetTestActivity"
+            android:theme="@style/AppActTheme">
+
         </activity>
 
-        <activity android:name="com.vince.andframe.demo.refresh.TestRefreshListActivity"
-                  android:theme="@style/AppActTheme">
+        <activity
+            android:name="com.vince.andframe.demo.refresh.TestRefreshListActivity"
+            android:theme="@style/AppActTheme">
+
         </activity>
-        <activity android:name="com.vince.andframe.demo.refresh.TestRefreshScrollActivity"
-                  android:theme="@style/AppActTheme">
+
+        <activity
+            android:name="com.vince.andframe.demo.refresh.TestRefreshScrollActivity"
+            android:theme="@style/AppActTheme">
+
         </activity>
+
+        <activity
+            android:name="com.vince.andframe.demo.recycler.DrawerViewActivity"
+            android:theme="@style/AppActTheme">
+
+        </activity>
+
     </application>
 
 </manifest>
