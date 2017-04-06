@@ -12,7 +12,8 @@ import com.vince.andframe.app.AFConstants;
 import com.vince.andframe.base.ui.activity.BaseBizActivity;
 import com.vince.andframe.base.ui.prompt.ToastUtils;
 import com.vince.andframe.demo.network.NetTestActivity;
-import com.vince.andframe.demo.recycler.DrawerViewActivity;
+import com.vince.andframe.demo.recycler.drawer.DrawerViewActivity;
+import com.vince.andframe.demo.recycler.pinterest.PinterestDemoActivity;
 import com.vince.andframe.demo.refresh.TestRefreshListActivity;
 import com.vince.andframe.demo.refresh.TestRefreshScrollActivity;
 
@@ -22,6 +23,7 @@ public class MainActivity extends BaseBizActivity {
     private Button btnRefreshListView;
     private Button btnRefreshScrollView;
     private Button btnDrawer;
+    private Button btnPinterset;
 
     private int clickBackTimes = 0;
     private Handler handler = new Handler();
@@ -36,6 +38,7 @@ public class MainActivity extends BaseBizActivity {
         btnRefreshListView = (Button) findViewById(R.id.btn_refresh_list);
         btnRefreshScrollView = (Button) findViewById(R.id.btn_refresh_scroll);
         btnDrawer = (Button) findViewById(R.id.btn_drawer);
+        btnPinterset = (Button) findViewById(R.id.btn_pinterest);
         initListener();
         topTitle();
     }
@@ -85,6 +88,8 @@ public class MainActivity extends BaseBizActivity {
                     case R.id.btn_drawer:
                         toActivity(DrawerViewActivity.class);
                         break;
+                    case R.id.btn_pinterest:
+                        toActivity(PinterestDemoActivity.class);
                     default:
                         break;
                 }
@@ -94,6 +99,7 @@ public class MainActivity extends BaseBizActivity {
         btnRefreshListView.setOnClickListener(clickListener);
         btnRefreshScrollView.setOnClickListener(clickListener);
         btnDrawer.setOnClickListener(clickListener);
+        btnPinterset.setOnClickListener(clickListener);
     }
 
     private void toActivity(Class activity) {
