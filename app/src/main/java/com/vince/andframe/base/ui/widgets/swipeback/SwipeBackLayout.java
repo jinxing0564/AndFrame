@@ -53,6 +53,12 @@ public class SwipeBackLayout extends LinearLayout {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        swipeLayoutWidth = w;
+    }
+
+    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (!canSwipeBack) {
             return super.dispatchTouchEvent(ev);
