@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_get_book"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="获取书单"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/btn_add_book"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:text="添加书籍"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_book_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:lineSpacingExtra="10dp"
+        android:textColor="@color/color_999999"
+        android:textSize="12dp" />
+
+</LinearLayout>

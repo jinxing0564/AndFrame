@@ -48,6 +48,16 @@
 
         </activity>
 
+        <service
+            android:name="com.vince.andframe.demo.aidl.BookManagerServerService"
+            android:process=":remote" />
+
+        <activity
+            android:name="com.vince.andframe.demo.aidl.BookClientActivity"
+            android:theme="@style/AppActTheme">
+
+        </activity>
+
     </application>
 
 </manifest>

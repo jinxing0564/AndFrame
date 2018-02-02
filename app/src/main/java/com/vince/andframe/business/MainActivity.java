@@ -11,6 +11,7 @@ import com.vince.aframe.R;
 import com.vince.andframe.app.AFConstants;
 import com.vince.andframe.base.ui.activity.BaseBizActivity;
 import com.vince.andframe.base.ui.prompt.ToastUtils;
+import com.vince.andframe.demo.aidl.BookClientActivity;
 import com.vince.andframe.demo.network.NetTestActivity;
 import com.vince.andframe.demo.recycler.drawer.DrawerViewActivity;
 import com.vince.andframe.demo.recycler.pinterest.PinterestDemoActivity;
@@ -24,6 +25,7 @@ public class MainActivity extends BaseBizActivity {
     private Button btnRefreshScrollView;
     private Button btnDrawer;
     private Button btnPinterset;
+    private Button btnAidl;
 
     private int clickBackTimes = 0;
     private Handler handler = new Handler();
@@ -39,6 +41,7 @@ public class MainActivity extends BaseBizActivity {
         btnRefreshScrollView = (Button) findViewById(R.id.btn_refresh_scroll);
         btnDrawer = (Button) findViewById(R.id.btn_drawer);
         btnPinterset = (Button) findViewById(R.id.btn_pinterest);
+        btnAidl = (Button) findViewById(R.id.btn_aidl);
         initListener();
         topTitle();
     }
@@ -90,6 +93,10 @@ public class MainActivity extends BaseBizActivity {
                         break;
                     case R.id.btn_pinterest:
                         toActivity(PinterestDemoActivity.class);
+                        break;
+                    case R.id.btn_aidl:
+                        toActivity(BookClientActivity.class);
+                        break;
                     default:
                         break;
                 }
@@ -100,6 +107,7 @@ public class MainActivity extends BaseBizActivity {
         btnRefreshScrollView.setOnClickListener(clickListener);
         btnDrawer.setOnClickListener(clickListener);
         btnPinterset.setOnClickListener(clickListener);
+        btnAidl.setOnClickListener(clickListener);
     }
 
     private void toActivity(Class activity) {
