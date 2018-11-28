@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '23.0.1'
 
     defaultConfig {
         applicationId "com.vince.aframe"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 2
         versionName "1.1"
@@ -19,10 +20,21 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 1  //版本
+    daoPackage 'com.vince.andframe.base.database.dbgen' // 一般为app包名+生成文件的文件夹名
+    targetGenDir 'src/main/java' //生成文件路径
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
+
+    compile 'org.greenrobot:greendao:3.2.2' // add library
+    compile 'org.greenrobot:greendao-generator:3.2.2'
+    compile 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
+
 }
