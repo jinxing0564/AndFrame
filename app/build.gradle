@@ -36,5 +36,7 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.2' // add library
     compile 'org.greenrobot:greendao-generator:3.2.2'
     compile 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
+    compile "com.android.support:design:23.4.0"
+
 
 }

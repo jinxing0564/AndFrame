@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import com.vince.aframe.R;
  * Created by tianweixin on 2016-9-5.
  */
 
-public class ThemeActivity extends Activity {
+public class ThemeActivity extends AppCompatActivity {
     private View titleView;
     private TextView title;
     private TextView tvRight;

@@ -62,6 +62,11 @@
             android:theme="@style/AppActTheme">
 
         </activity>
+        <activity
+            android:name="com.vince.andframe.demo.tab.TabLayoutDemoActivity"
+            android:theme="@style/AppActTheme">
+
+        </activity>
 
     </application>
 

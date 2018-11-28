@@ -17,6 +17,7 @@ import com.vince.andframe.demo.recycler.drawer.DrawerViewActivity;
 import com.vince.andframe.demo.recycler.pinterest.PinterestDemoActivity;
 import com.vince.andframe.demo.refresh.TestRefreshListActivity;
 import com.vince.andframe.demo.refresh.TestRefreshScrollActivity;
+import com.vince.andframe.demo.tab.TabLayoutDemoActivity;
 
 public class MainActivity extends BaseBizActivity {
 
@@ -97,6 +98,9 @@ public class MainActivity extends BaseBizActivity {
                     case R.id.btn_aidl:
                         toActivity(BookClientActivity.class);
                         break;
+                    case R.id.btn_tab:
+                        toActivity(TabLayoutDemoActivity.class);
+                        break;
                     default:
                         break;
                 }
@@ -108,6 +112,7 @@ public class MainActivity extends BaseBizActivity {
         btnDrawer.setOnClickListener(clickListener);
         btnPinterset.setOnClickListener(clickListener);
         btnAidl.setOnClickListener(clickListener);
+        findViewById(R.id.btn_tab).setOnClickListener(clickListener);
     }
 
     private void toActivity(Class activity) {
